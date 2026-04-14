@@ -1,7 +1,7 @@
 import { Navigation } from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, Building2, Globe, HeartPulse, ShieldCheck, Ship, Target, Users, MapPin, Truck, ChevronRight, CheckCircle2, Send } from "lucide-react";
+import { ArrowRight, Building2, Globe, HeartPulse, ShieldCheck, Ship, Target, Users, MapPin, Truck, ChevronRight, CheckCircle2, Send, Instagram, Facebook, MessageCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { BdmLogo } from "@/components/BdmLogo";
 import carImport1 from "@assets/image_1776162738730.png";
@@ -19,7 +19,7 @@ export default function Home() {
     const body = encodeURIComponent(
       `Name: ${form.name}\nEmail: ${form.email}\n\nMessage:\n${form.message}`
     );
-    window.open(`mailto:info@bdmghana.com?subject=${subject}&body=${body}`, "_blank");
+    window.open(`mailto:support@bdmbusiness.org?subject=${subject}&body=${body}`, "_blank");
     setSubmitted(true);
   }
 
@@ -497,8 +497,41 @@ export default function Home() {
 
                     <p className="text-xs text-center text-muted-foreground">
                       Your message will open in your email client, pre-addressed to{" "}
-                      <span className="text-secondary">info@bdmghana.com</span>
+                      <span className="text-secondary">support@bdmbusiness.org</span>
                     </p>
+
+                    <div className="pt-2 border-t border-border">
+                      <p className="text-xs text-center text-muted-foreground mb-3">Or reach us on</p>
+                      <div className="flex justify-center gap-3">
+                        <a
+                          href="https://www.instagram.com/bdmbusiness_"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-secondary transition-colors px-3 py-1.5 rounded-full border border-border hover:border-secondary/40"
+                        >
+                          <Instagram className="w-3.5 h-3.5" />
+                          @bdmbusiness_
+                        </a>
+                        <a
+                          href="https://wa.me/233278099101"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-secondary transition-colors px-3 py-1.5 rounded-full border border-border hover:border-secondary/40"
+                        >
+                          <MessageCircle className="w-3.5 h-3.5" />
+                          WhatsApp
+                        </a>
+                        <a
+                          href="https://www.facebook.com/BDMbusiness"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-secondary transition-colors px-3 py-1.5 rounded-full border border-border hover:border-secondary/40"
+                        >
+                          <Facebook className="w-3.5 h-3.5" />
+                          BDMbusiness
+                        </a>
+                      </div>
+                    </div>
                   </form>
                 )}
               </div>
@@ -510,7 +543,9 @@ export default function Home() {
       {/* FOOTER */}
       <footer className="bg-primary text-primary-foreground/60 py-12 border-t border-white/10">
         <div className="container mx-auto px-4 md:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+
+            {/* Logo + name */}
             <div className="flex items-center gap-3">
               <BdmLogo size={36} />
               <div>
@@ -518,9 +553,48 @@ export default function Home() {
                 <span className="text-[10px] uppercase tracking-wider font-medium text-white/60">Buabeng Degeneral Merchant</span>
               </div>
             </div>
-            <div className="text-sm">
-              &copy; {new Date().getFullYear()} Buabeng Degeneral Merchant. All rights reserved.
+
+            {/* Social media links */}
+            <div className="flex items-center gap-3">
+              <a
+                href="https://www.instagram.com/bdmbusiness_"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/50 transition-colors"
+              >
+                <Instagram className="w-4 h-4" />
+              </a>
+              <a
+                href="https://wa.me/233278099101"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/50 transition-colors"
+              >
+                <MessageCircle className="w-4 h-4" />
+              </a>
+              <a
+                href="https://www.facebook.com/BDMbusiness"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/50 transition-colors"
+              >
+                <Facebook className="w-4 h-4" />
+              </a>
             </div>
+
+            {/* Copyright */}
+            <div className="text-sm text-center md:text-right">
+              <div>&copy; {new Date().getFullYear()} Buabeng Degeneral Merchant. All rights reserved.</div>
+              <div className="mt-1">
+                <a href="mailto:support@bdmbusiness.org" className="text-white/40 hover:text-white/80 transition-colors text-xs">
+                  support@bdmbusiness.org
+                </a>
+              </div>
+            </div>
+
           </div>
         </div>
       </footer>
