@@ -213,18 +213,21 @@ export default function Home() {
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
               {[
-                { src: carImport1, alt: "White Hyundai Tucson being loaded into shipping container at port yard" },
-                { src: carImport2, alt: "Jeep SUV secured in shipping container with protective blue wrap" },
-                { src: carImport3, alt: "Red Kia and Hyundai stacked inside shipping container" },
-                { src: carImport4, alt: "Interior view of shipping container with vehicle loaded on upper rack" },
-              ].map(({ src, alt }, i) => (
-                <div key={i} className="group relative overflow-hidden rounded-xl aspect-[3/4] bg-muted shadow-sm hover:shadow-lg transition-shadow duration-300">
-                  <img
-                    src={src}
-                    alt={alt}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-colors duration-500" />
+                { src: carImport1, alt: "White Hyundai Tucson being loaded into shipping container at port yard", caption: "Loading at port yard — South Korea" },
+                { src: carImport2, alt: "Jeep SUV secured in shipping container with protective blue wrap", caption: "Jeep secured with protective wrap" },
+                { src: carImport3, alt: "Red Kia and Hyundai stacked inside shipping container", caption: "Dual-stack loading in container" },
+                { src: carImport4, alt: "Interior view of shipping container with vehicle loaded on upper rack", caption: "Vehicle importation from China" },
+              ].map(({ src, alt, caption }, i) => (
+                <div key={i} className="flex flex-col gap-2">
+                  <div className="group relative overflow-hidden rounded-xl aspect-[4/3] bg-muted shadow-sm hover:shadow-lg transition-shadow duration-300">
+                    <img
+                      src={src}
+                      alt={alt}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-colors duration-500" />
+                  </div>
+                  <p className="text-xs text-center text-muted-foreground px-1">{caption}</p>
                 </div>
               ))}
             </div>
