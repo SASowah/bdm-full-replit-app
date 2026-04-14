@@ -327,11 +327,11 @@ export default function Home() {
             </div>
             
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Button size="lg" className="h-14 px-10 text-lg" data-testid="button-cta-contact">
-                Contact BDM Today
+              <Button size="lg" className="h-14 px-10 text-lg" asChild data-testid="button-cta-contact">
+                <a href="mailto:info@bdmghana.com">Contact BDM Today</a>
               </Button>
-              <Button size="lg" variant="outline" className="h-14 px-10 text-lg" data-testid="button-cta-services">
-                Learn More About Our Services
+              <Button size="lg" variant="outline" className="h-14 px-10 text-lg" asChild data-testid="button-cta-services">
+                <a href="#services">Learn More About Our Services</a>
               </Button>
             </div>
           </div>
