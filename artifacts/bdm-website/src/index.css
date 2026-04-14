@@ -71,7 +71,7 @@
   --elevate-2: rgba(0,0,0, .08);
 
   /* Fortune 500 premium palette — midnight navy + vivid purple */
-  --background: 220 30% 98%;       /* crisp cool near-white */
+  --background: 220 30% 98.5%;     /* crisp cool near-white */
   --foreground: 235 50% 9%;        /* deep midnight — rich, not flat black */
 
   --border: 220 20% 90%;           /* refined cool-grey border */
