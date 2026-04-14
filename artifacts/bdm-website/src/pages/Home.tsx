@@ -519,7 +519,7 @@ export default function Home() {
                           className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-secondary transition-colors px-3 py-1.5 rounded-full border border-border hover:border-secondary/40"
                         >
                           <MessageCircle className="w-3.5 h-3.5" />
-                          WhatsApp
+                          +233 27 809 9101
                         </a>
                         <a
                           href="https://www.facebook.com/BDMbusiness"
@@ -555,33 +555,33 @@ export default function Home() {
             </div>
 
             {/* Social media links */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
               <a
                 href="https://www.instagram.com/bdmbusiness_"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Instagram"
-                className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/50 transition-colors"
+                className="flex items-center gap-2 text-white/60 hover:text-white transition-colors text-sm"
               >
-                <Instagram className="w-4 h-4" />
+                <Instagram className="w-4 h-4 shrink-0" />
+                <span>@bdmbusiness_</span>
               </a>
               <a
                 href="https://wa.me/233278099101"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="WhatsApp"
-                className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/50 transition-colors"
+                className="flex items-center gap-2 text-white/60 hover:text-white transition-colors text-sm"
               >
-                <MessageCircle className="w-4 h-4" />
+                <MessageCircle className="w-4 h-4 shrink-0" />
+                <span>+233 27 809 9101</span>
               </a>
               <a
                 href="https://www.facebook.com/BDMbusiness"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Facebook"
-                className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/50 transition-colors"
+                className="flex items-center gap-2 text-white/60 hover:text-white transition-colors text-sm"
               >
-                <Facebook className="w-4 h-4" />
+                <Facebook className="w-4 h-4 shrink-0" />
+                <span>BDMbusiness</span>
               </a>
             </div>
 
