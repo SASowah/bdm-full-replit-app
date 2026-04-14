@@ -1,7 +1,8 @@
 import { Link } from "wouter";
-import { Menu, X, Globe, Anchor } from "lucide-react";
+import { Menu, X, Globe } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { BdmLogo } from "@/components/BdmLogo";
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -49,9 +50,7 @@ export function Navigation() {
       <div className="container mx-auto px-4 md:px-8">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group" data-testid="link-home-logo">
-            <div className={`p-2 rounded-lg transition-colors ${isScrolled ? 'bg-primary text-primary-foreground' : 'bg-white/10 text-white backdrop-blur-sm'}`}>
-              <Anchor className="w-6 h-6" />
-            </div>
+            <BdmLogo size={36} />
             <div className="flex flex-col">
               <span className={`font-serif font-bold text-xl leading-none tracking-tight ${isScrolled ? 'text-foreground' : 'text-white'}`}>
                 BDM

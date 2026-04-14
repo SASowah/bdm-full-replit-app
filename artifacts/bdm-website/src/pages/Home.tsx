@@ -1,10 +1,24 @@
 import { Navigation } from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Anchor, ArrowRight, Building2, Globe, HeartPulse, ShieldCheck, Ship, Target, Users, MapPin, Truck, ChevronRight } from "lucide-react";
-import { useEffect } from "react";
+import { ArrowRight, Building2, Globe, HeartPulse, ShieldCheck, Ship, Target, Users, MapPin, Truck, ChevronRight, CheckCircle2, Send } from "lucide-react";
+import { useEffect, useState } from "react";
+import { BdmLogo } from "@/components/BdmLogo";
 
 export default function Home() {
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [submitted, setSubmitted] = useState(false);
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    const subject = encodeURIComponent(`Message from ${form.name}`);
+    const body = encodeURIComponent(
+      `Name: ${form.name}\nEmail: ${form.email}\n\nMessage:\n${form.message}`
+    );
+    window.open(`mailto:info@bdmghana.com?subject=${subject}&body=${body}`, "_blank");
+    setSubmitted(true);
+  }
+
   // Simple intersection observer for scroll animations
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -321,29 +335,134 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA / MISSION */}
-      <section id="contact" className="py-32 bg-background relative overflow-hidden">
+      {/* CONTACT / MISSION */}
+      <section id="contact" className="py-24 bg-background relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('/hero-port.png')] opacity-5 bg-cover bg-center bg-fixed"></div>
         <div className="container mx-auto px-4 md:px-8 relative z-10">
-          <div className="max-w-4xl mx-auto text-center reveal">
-            <Anchor className="w-12 h-12 text-secondary mx-auto mb-8" />
-            <h2 className="text-4xl md:text-6xl font-serif font-bold text-foreground mb-8 leading-tight">
-              Ready to streamline your procurement and logistics?
-            </h2>
-            <div className="bg-muted p-8 md:p-12 rounded-3xl border border-border mb-10 relative">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-background px-4 text-sm font-bold tracking-widest text-secondary uppercase">Our Mission</div>
-              <p className="text-xl md:text-2xl text-foreground font-serif italic leading-relaxed">
-                "To make life easy for the general public by offering customized services that meet their criteria and budget, while serving as the most reliable middlemen for every aspect of business in Africa."
+          <div className="max-w-5xl mx-auto">
+
+            {/* Header */}
+            <div className="text-center mb-14 reveal">
+              <BdmLogo size={56} className="mx-auto mb-6" />
+              <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-4 leading-tight">
+                Let's Work Together
+              </h2>
+              <p className="text-muted-foreground text-lg max-w-xl mx-auto">
+                Reach out with any questions, enquiries, or partnership opportunities — our team responds promptly.
               </p>
             </div>
-            
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Button size="lg" className="w-full sm:w-auto px-4 sm:px-10 text-base" asChild data-testid="button-cta-contact">
-                <a href="mailto:info@bdmghana.com">Contact BDM Today</a>
-              </Button>
-              <Button size="lg" variant="outline" className="w-full sm:w-auto px-4 sm:px-10 text-base" asChild data-testid="button-cta-services">
-                <a href="#services">Learn More About Our Services</a>
-              </Button>
+
+            <div className="grid md:grid-cols-2 gap-10 items-start">
+
+              {/* Mission statement */}
+              <div className="reveal">
+                <div className="bg-muted p-8 rounded-3xl border border-border relative mb-8">
+                  <div className="absolute top-0 left-8 -translate-y-1/2 bg-background px-3 text-xs font-bold tracking-widest text-secondary uppercase">
+                    Our Mission
+                  </div>
+                  <p className="text-lg text-foreground font-serif italic leading-relaxed">
+                    "To make life easy for the general public by offering customised services that meet their criteria and budget, while serving as the most reliable middlemen for every aspect of business in Africa."
+                  </p>
+                </div>
+                <ul className="space-y-3 text-muted-foreground">
+                  {[
+                    "General merchandise & import/export",
+                    "Global sourcing from Korea, China, USA & Canada",
+                    "Consulting, logistics & business travel support",
+                  ].map((item) => (
+                    <li key={item} className="flex items-start gap-2">
+                      <CheckCircle2 className="w-5 h-5 text-secondary mt-0.5 shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Contact form */}
+              <div className="reveal">
+                {submitted ? (
+                  <div className="bg-muted rounded-3xl border border-border p-10 text-center flex flex-col items-center gap-4">
+                    <CheckCircle2 className="w-14 h-14 text-secondary" />
+                    <h3 className="text-2xl font-serif font-bold text-foreground">Message Sent!</h3>
+                    <p className="text-muted-foreground">
+                      Your email client has opened with your message pre-filled. We look forward to connecting with you.
+                    </p>
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        setForm({ name: "", email: "", message: "" });
+                        setSubmitted(false);
+                      }}
+                    >
+                      Send Another Message
+                    </Button>
+                  </div>
+                ) : (
+                  <form
+                    onSubmit={handleSubmit}
+                    className="bg-muted rounded-3xl border border-border p-8 space-y-5"
+                    data-testid="contact-form"
+                  >
+                    <div>
+                      <label htmlFor="contact-name" className="block text-sm font-semibold text-foreground mb-1.5">
+                        Your Name
+                      </label>
+                      <input
+                        id="contact-name"
+                        type="text"
+                        required
+                        placeholder="e.g. Kwame Mensah"
+                        value={form.name}
+                        onChange={(e) => setForm({ ...form, name: e.target.value })}
+                        className="w-full rounded-xl border border-border bg-background px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-secondary/50 transition"
+                        data-testid="input-name"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="contact-email" className="block text-sm font-semibold text-foreground mb-1.5">
+                        Your Email
+                      </label>
+                      <input
+                        id="contact-email"
+                        type="email"
+                        required
+                        placeholder="you@example.com"
+                        value={form.email}
+                        onChange={(e) => setForm({ ...form, email: e.target.value })}
+                        className="w-full rounded-xl border border-border bg-background px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-secondary/50 transition"
+                        data-testid="input-email"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="contact-message" className="block text-sm font-semibold text-foreground mb-1.5">
+                        Your Message / Enquiry
+                      </label>
+                      <textarea
+                        id="contact-message"
+                        required
+                        rows={5}
+                        placeholder="Tell us about your needs, products you're looking to source, or any questions…"
+                        value={form.message}
+                        onChange={(e) => setForm({ ...form, message: e.target.value })}
+                        className="w-full rounded-xl border border-border bg-background px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-secondary/50 transition resize-none"
+                        data-testid="input-message"
+                      />
+                    </div>
+
+                    <Button type="submit" size="lg" className="w-full gap-2" data-testid="button-cta-contact">
+                      <Send className="w-4 h-4" />
+                      Contact BDM Today
+                    </Button>
+
+                    <p className="text-xs text-center text-muted-foreground">
+                      Your message will open in your email client, pre-addressed to{" "}
+                      <span className="text-secondary">info@bdmghana.com</span>
+                    </p>
+                  </form>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -353,8 +472,8 @@ export default function Home() {
       <footer className="bg-primary text-primary-foreground/60 py-12 border-t border-white/10">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="flex items-center gap-2">
-              <Anchor className="w-6 h-6 text-secondary" />
+            <div className="flex items-center gap-3">
+              <BdmLogo size={36} />
               <div>
                 <span className="font-serif font-bold text-xl leading-none tracking-tight text-white block">BDM</span>
                 <span className="text-[10px] uppercase tracking-wider font-medium text-white/60">Buabeng Degeneral Merchant</span>
