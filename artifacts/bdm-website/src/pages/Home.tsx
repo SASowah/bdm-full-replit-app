@@ -1,7 +1,8 @@
 import { Navigation } from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, Building2, Globe, HeartPulse, ShieldCheck, Ship, Target, Users, MapPin, Truck, ChevronRight, CheckCircle2, Send, Instagram, Facebook, MessageCircle } from "lucide-react";
+import { ArrowRight, Building2, Globe, HeartPulse, ShieldCheck, Ship, Target, Users, MapPin, Truck, ChevronRight, CheckCircle2, Send } from "lucide-react";
+import { FaInstagram, FaWhatsapp, FaFacebook } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { BdmLogo } from "@/components/BdmLogo";
 import carImport1 from "@assets/image_1776162738730.png";
@@ -509,7 +510,7 @@ export default function Home() {
                           rel="noopener noreferrer"
                           className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-secondary transition-colors px-3 py-1.5 rounded-full border border-border hover:border-secondary/40"
                         >
-                          <Instagram className="w-3.5 h-3.5" />
+                          <FaInstagram className="w-3.5 h-3.5" style={{ color: "#E1306C" }} />
                           @bdmbusiness_
                         </a>
                         <a
@@ -518,7 +519,7 @@ export default function Home() {
                           rel="noopener noreferrer"
                           className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-secondary transition-colors px-3 py-1.5 rounded-full border border-border hover:border-secondary/40"
                         >
-                          <MessageCircle className="w-3.5 h-3.5" />
+                          <FaWhatsapp className="w-3.5 h-3.5" style={{ color: "#25D366" }} />
                           +233 27 809 9101
                         </a>
                         <a
@@ -527,7 +528,7 @@ export default function Home() {
                           rel="noopener noreferrer"
                           className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-secondary transition-colors px-3 py-1.5 rounded-full border border-border hover:border-secondary/40"
                         >
-                          <Facebook className="w-3.5 h-3.5" />
+                          <FaFacebook className="w-3.5 h-3.5" style={{ color: "#1877F2" }} />
                           BDMbusiness
                         </a>
                       </div>
@@ -562,7 +563,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-white/60 hover:text-white transition-colors text-sm"
               >
-                <Instagram className="w-4 h-4 shrink-0" />
+                <FaInstagram className="w-4 h-4 shrink-0" style={{ color: "#E1306C" }} />
                 <span>@bdmbusiness_</span>
               </a>
               <a
@@ -571,7 +572,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-white/60 hover:text-white transition-colors text-sm"
               >
-                <MessageCircle className="w-4 h-4 shrink-0" />
+                <FaWhatsapp className="w-4 h-4 shrink-0" style={{ color: "#25D366" }} />
                 <span>+233 27 809 9101</span>
               </a>
               <a
@@ -580,7 +581,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-white/60 hover:text-white transition-colors text-sm"
               >
-                <Facebook className="w-4 h-4 shrink-0" />
+                <FaFacebook className="w-4 h-4 shrink-0" style={{ color: "#1877F2" }} />
                 <span>BDMbusiness</span>
               </a>
             </div>
