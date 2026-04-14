@@ -1,0 +1,20 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "kt6EniPdzLD2Is1dCuA0Z"
+uri = "file://artifacts/bdm-website/public/hero-port.png"
+type = "image"
+title = "Hero background image of a shipping port"
+
+[[generated]]
+id = "oItqzuR-wgGxpuBCDHRo_"
+uri = "file://artifacts/bdm-website/public/medical-supplies.png"
+type = "image"
+title = "Medical equipment in a modern clinic"
+
+[[generated]]
+id = "Ak5u9Tn54CgBBRUJeWpi1"
+uri = "file://artifacts/bdm-website/public/global-network.png"
+type = "image"
+title = "Global logistics and business network"
