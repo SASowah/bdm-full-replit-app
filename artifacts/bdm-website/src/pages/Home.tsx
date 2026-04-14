@@ -4,6 +4,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, Building2, Globe, HeartPulse, ShieldCheck, Ship, Target, Users, MapPin, Truck, ChevronRight, CheckCircle2, Send } from "lucide-react";
 import { useEffect, useState } from "react";
 import { BdmLogo } from "@/components/BdmLogo";
+import carImport1 from "@assets/image_1776162738730.png";
+import carImport2 from "@assets/image_1776162703284.png";
+import carImport3 from "@assets/image_1776162730654.png";
+import carImport4 from "@assets/image_1776162722036.png";
 
 export default function Home() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -160,8 +164,12 @@ export default function Home() {
               </CardContent>
             </Card>
 
-            <Card className="border-border shadow-sm hover:shadow-md transition-shadow reveal delay-100">
-              <CardContent className="p-8 h-full flex flex-col justify-center">
+            <Card className="border-border shadow-sm hover:shadow-md transition-shadow reveal delay-100 group overflow-hidden">
+              <div className="h-48 overflow-hidden relative">
+                <div className="absolute inset-0 bg-primary/20 mix-blend-multiply z-10 group-hover:bg-transparent transition-colors duration-500"></div>
+                <img src={carImport1} alt="Vehicle being loaded into shipping container" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+              </div>
+              <CardContent className="p-8">
                 <Ship className="w-10 h-10 text-secondary mb-4" />
                 <h4 className="text-xl font-bold text-foreground mb-3">Import & Export</h4>
                 <p className="text-muted-foreground leading-relaxed">
@@ -192,6 +200,34 @@ export default function Home() {
                 </Button>
               </CardContent>
             </Card>
+          </div>
+
+          {/* Vehicle import photo gallery */}
+          <div className="mt-16 reveal">
+            <div className="text-center mb-8">
+              <span className="inline-block text-xs font-bold tracking-widest uppercase text-secondary mb-3">Real Operations</span>
+              <h3 className="text-2xl md:text-3xl font-serif font-bold text-foreground">Vehicle Importation in Action</h3>
+              <p className="text-muted-foreground mt-2 max-w-xl mx-auto">
+                A behind-the-scenes look at BDM's vehicle import operations — sourced from South Korea, China, and beyond.
+              </p>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+              {[
+                { src: carImport1, alt: "White Hyundai Tucson being loaded into shipping container at port yard" },
+                { src: carImport2, alt: "Jeep SUV secured in shipping container with protective blue wrap" },
+                { src: carImport3, alt: "Red Kia and Hyundai stacked inside shipping container" },
+                { src: carImport4, alt: "Interior view of shipping container with vehicle loaded on upper rack" },
+              ].map(({ src, alt }, i) => (
+                <div key={i} className="group relative overflow-hidden rounded-xl aspect-[3/4] bg-muted shadow-sm hover:shadow-lg transition-shadow duration-300">
+                  <img
+                    src={src}
+                    alt={alt}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-colors duration-500" />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
