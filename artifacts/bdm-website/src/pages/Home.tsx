@@ -338,10 +338,10 @@ export default function Home() {
             </div>
             
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Button size="lg" className="w-full sm:w-auto px-10 text-base" asChild data-testid="button-cta-contact">
+              <Button size="lg" className="w-full sm:w-auto px-4 sm:px-10 text-base" asChild data-testid="button-cta-contact">
                 <a href="mailto:info@bdmghana.com">Contact BDM Today</a>
               </Button>
-              <Button size="lg" variant="outline" className="w-full sm:w-auto px-10 text-base" asChild data-testid="button-cta-services">
+              <Button size="lg" variant="outline" className="w-full sm:w-auto px-4 sm:px-10 text-base" asChild data-testid="button-cta-services">
                 <a href="#services">Learn More About Our Services</a>
               </Button>
             </div>
