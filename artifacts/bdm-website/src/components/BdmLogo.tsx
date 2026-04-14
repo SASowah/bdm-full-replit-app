@@ -1,4 +1,4 @@
-import { useId } from "react";
+import bdmLogoSrc from "@assets/WhatsApp_Image_2026-04-14_at_3.26.04_AM_1776155672352.jpeg";
 
 interface BdmLogoProps {
   size?: number;
@@ -6,44 +6,17 @@ interface BdmLogoProps {
 }
 
 export function BdmLogo({ size = 32, className = "" }: BdmLogoProps) {
-  const uid = useId().replace(/:/g, "");
-  const gid = `bdm-grad-${uid}`;
-
   return (
-    <svg
-      width={size}
-      height={Math.round(size * 1.12)}
-      viewBox="0 0 68 76"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={className}
-      aria-label="BDM Business logo"
+    <div
+      className={`bg-white rounded-xl overflow-hidden flex items-center justify-center shrink-0 ${className}`}
+      style={{ width: size, height: size }}
     >
-      <defs>
-        <linearGradient id={gid} x1="0" y1="0" x2="68" y2="76" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#e879f9" />
-          <stop offset="55%" stopColor="#a855f7" />
-          <stop offset="100%" stopColor="#6d28d9" />
-        </linearGradient>
-      </defs>
-
-      {/* Stem + top loop — center of stem at x=13, top circle center at (35, 25), r=22 */}
-      <path
-        d="M 13 70 L 13 25 A 22 22 0 0 1 57 25 A 22 22 0 0 1 13 25"
-        stroke={`url(#${gid})`}
-        strokeWidth="14"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+      <img
+        src={bdmLogoSrc}
+        alt="BDM Business logo"
+        className="w-full h-full object-contain"
+        draggable={false}
       />
-
-      {/* Bottom belly — full circle center at (47, 58), r=15 */}
-      <path
-        d="M 32 58 A 15 15 0 0 1 62 58 A 15 15 0 0 1 32 58"
-        stroke={`url(#${gid})`}
-        strokeWidth="14"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    </div>
   );
 }
