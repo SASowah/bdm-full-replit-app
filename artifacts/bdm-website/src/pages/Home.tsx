@@ -475,7 +475,7 @@ export default function Home() {
             <div className="flex items-center gap-3">
               <BdmLogo size={36} />
               <div>
-                <span className="font-serif font-bold text-xl leading-none tracking-tight text-white block">BDM</span>
+                <span className="font-serif font-bold text-xl leading-none tracking-tight text-white block">BDM Business</span>
                 <span className="text-[10px] uppercase tracking-wider font-medium text-white/60">Buabeng Degeneral Merchant</span>
               </div>
             </div>

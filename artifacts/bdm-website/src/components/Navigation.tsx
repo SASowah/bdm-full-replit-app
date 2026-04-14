@@ -53,10 +53,10 @@ export function Navigation() {
             <BdmLogo size={36} />
             <div className="flex flex-col">
               <span className={`font-serif font-bold text-xl leading-none tracking-tight ${isScrolled ? 'text-foreground' : 'text-white'}`}>
-                BDM
+                BDM Business
               </span>
               <span className={`text-[10px] uppercase tracking-wider font-medium opacity-80 ${isScrolled ? 'text-muted-foreground' : 'text-white'}`}>
-                Buabeng Degeneral
+                Buabeng Degeneral Merchant
               </span>
             </div>
           </Link>
