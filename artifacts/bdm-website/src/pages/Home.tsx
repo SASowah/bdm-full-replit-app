@@ -252,11 +252,19 @@ export default function Home() {
       {/* PARTNERS & CLIENTS */}
       <section id="partners" className="py-24 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 md:px-8">
-          <div className="grid lg:grid-cols-2 gap-16">
+          {/* Section header */}
+          <div className="text-center max-w-2xl mx-auto mb-14 reveal">
+            <h2 className="text-sm font-bold tracking-widest text-secondary uppercase mb-3">Who We Work With</h2>
+            <h3 className="text-3xl md:text-4xl font-serif font-bold">Trusted Partners &amp; Clients</h3>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-8 items-start">
+            {/* Key Clients */}
             <div className="reveal">
-              <h2 className="text-sm font-bold tracking-widest text-secondary uppercase mb-3">Key Clients</h2>
-              <h3 className="text-3xl font-serif font-bold mb-8">Trusted by Institutions</h3>
-              <div className="space-y-4">
+              <h4 className="text-xs font-bold tracking-widest text-secondary/80 uppercase mb-5 flex items-center gap-2">
+                <Users className="w-4 h-4" /> Key Clients
+              </h4>
+              <div className="space-y-3">
                 {[
                   "Ga Central Municipal Directorate",
                   "Tabora Health Center",
@@ -264,42 +272,45 @@ export default function Home() {
                   "Ablekuma Health Centre",
                   "Presbyterian Excellence School"
                 ].map((client, i) => (
-                  <div key={i} className="flex items-center gap-4 bg-white/5 p-4 rounded-lg border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors">
-                    <Users className="w-5 h-5 text-secondary" />
-                    <span className="font-medium">{client}</span>
+                  <div key={i} className="flex items-center gap-4 bg-white/5 px-5 py-4 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
+                    <div className="w-8 h-8 flex-shrink-0 rounded-full bg-secondary/20 flex items-center justify-center text-secondary text-sm font-bold">
+                      {i + 1}
+                    </div>
+                    <span className="font-medium leading-snug">{client}</span>
                   </div>
                 ))}
               </div>
             </div>
 
+            {/* Strategic Partnerships */}
             <div className="reveal delay-200">
-              <h2 className="text-sm font-bold tracking-widest text-secondary uppercase mb-3">Strategic Partnerships</h2>
-              <h3 className="text-3xl font-serif font-bold mb-8">Alliances for Excellence</h3>
-              
-              <div className="space-y-6">
-                <div className="bg-white/5 p-8 rounded-xl border border-white/10 backdrop-blur-sm">
+              <h4 className="text-xs font-bold tracking-widest text-secondary/80 uppercase mb-5 flex items-center gap-2">
+                <Globe className="w-4 h-4" /> Strategic Partnerships
+              </h4>
+              <div className="space-y-4">
+                <div className="bg-white/5 px-5 py-5 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
                   <div className="flex items-start gap-4">
-                    <div className="p-3 bg-secondary/20 rounded-lg text-secondary">
-                      <Truck className="w-6 h-6" />
+                    <div className="w-10 h-10 flex-shrink-0 rounded-lg bg-secondary/20 flex items-center justify-center text-secondary">
+                      <Truck className="w-5 h-5" />
                     </div>
                     <div>
-                      <h4 className="text-xl font-bold mb-2">Dope Auto Dealership</h4>
-                      <p className="text-primary-foreground/70">
-                        Strategic partnership for comprehensive automotive solutions, fleet procurement, and specialized vehicle sourcing across the continent.
+                      <h5 className="font-bold text-base mb-1">Dope Auto Dealership</h5>
+                      <p className="text-sm text-primary-foreground/70 leading-relaxed">
+                        Automotive solutions, fleet procurement, and specialized vehicle sourcing across the continent.
                       </p>
                     </div>
                   </div>
                 </div>
-                
-                <div className="bg-white/5 p-8 rounded-xl border border-white/10 backdrop-blur-sm">
+
+                <div className="bg-white/5 px-5 py-5 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
                   <div className="flex items-start gap-4">
-                    <div className="p-3 bg-secondary/20 rounded-lg text-secondary">
-                      <Globe className="w-6 h-6" />
+                    <div className="w-10 h-10 flex-shrink-0 rounded-lg bg-secondary/20 flex items-center justify-center text-secondary">
+                      <Globe className="w-5 h-5" />
                     </div>
                     <div>
-                      <h4 className="text-xl font-bold mb-2">Think Places Travel Services</h4>
-                      <p className="text-primary-foreground/70">
-                        Partnering to provide exceptional travel and logistics support, ensuring seamless movement of personnel and expedited business travel.
+                      <h5 className="font-bold text-base mb-1">Think Places Travel Services</h5>
+                      <p className="text-sm text-primary-foreground/70 leading-relaxed">
+                        Travel and logistics support ensuring seamless movement of personnel and expedited business travel.
                       </p>
                     </div>
                   </div>
@@ -327,10 +338,10 @@ export default function Home() {
             </div>
             
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Button size="lg" className="h-14 px-10 text-lg" asChild data-testid="button-cta-contact">
+              <Button size="lg" className="w-full sm:w-auto px-10 text-base" asChild data-testid="button-cta-contact">
                 <a href="mailto:info@bdmghana.com">Contact BDM Today</a>
               </Button>
-              <Button size="lg" variant="outline" className="h-14 px-10 text-lg" asChild data-testid="button-cta-services">
+              <Button size="lg" variant="outline" className="w-full sm:w-auto px-10 text-base" asChild data-testid="button-cta-services">
                 <a href="#services">Learn More About Our Services</a>
               </Button>
             </div>
