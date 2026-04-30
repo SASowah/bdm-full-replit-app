@@ -217,23 +217,19 @@ export default {
         method: request.method,
         headers: request.headers,
         body: ["GET", "HEAD"].includes(request.method) ? undefined : request.body,
-        redirect: "follow",
+        redirect: "manual",
       });
 
       const response = await fetch(originRequest);
 
-      if (response.ok || response.status === 301 || response.status === 302 || response.status === 304) {
+      if (response.status < 500) {
         return response;
       }
 
-      if (response.status >= 500) {
-        return new Response(MAINTENANCE_HTML, {
-          status: 200,
-          headers: { "Content-Type": "text/html;charset=UTF-8" },
-        });
-      }
-
-      return response;
+      return new Response(MAINTENANCE_HTML, {
+        status: 200,
+        headers: { "Content-Type": "text/html;charset=UTF-8" },
+      });
 
     } catch {
       return new Response(MAINTENANCE_HTML, {
