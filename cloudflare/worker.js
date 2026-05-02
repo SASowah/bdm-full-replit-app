@@ -12,7 +12,6 @@
  *    - Click "Create Worker"
  *    - Delete the default code and paste the entire contents of this file
  *    - Click "Save and Deploy"
- *    - Note the worker URL (e.g. bdm-worker.yourname.workers.dev) — you can test it here
  *
  * 2. ADD YOUR DOMAIN ROUTES
  *    - In the Worker's Settings tab → Triggers → Routes → Add Route
@@ -24,10 +23,8 @@
  *    - In Cloudflare DNS, ensure you have a CNAME record:
  *        Name: @   →  Target: bdm-solutions-hub.replit.app   (Proxied / orange cloud ON)
  *        Name: www →  Target: bdm-solutions-hub.replit.app   (Proxied / orange cloud ON)
- *    - If Cloudflare flags that CNAME flattening is needed for @, it will handle it automatically
  *
  * 4. DONE
- *    - The Worker now intercepts all traffic to bdmbusiness.org
  *    - When Replit is live: visitors see your website normally
  *    - When Replit is offline/suspended: visitors see the BDM maintenance page below
  * ============================================================
@@ -35,207 +32,203 @@
 
 const ORIGIN = "https://bdm-solutions-hub.replit.app";
 
-const MAINTENANCE_HTML = `<!DOCTYPE html>
+export default {
+  async fetch(request) {
+    try {
+      const originUrl = new URL(ORIGIN);
+      const targetUrl = new URL(request.url);
+      targetUrl.protocol = originUrl.protocol;
+      targetUrl.hostname = originUrl.hostname;
+      targetUrl.port = originUrl.port;
+
+      const headers = new Headers(request.headers);
+      headers.set("Host", originUrl.hostname);
+
+      const response = await fetch(targetUrl.toString(), {
+        method: request.method,
+        headers,
+        body: ["GET", "HEAD"].includes(request.method) ? null : request.body,
+        redirect: "follow",
+      });
+
+      if (response.status >= 400) {
+        return maintenancePage();
+      }
+
+      return response;
+    } catch (error) {
+      return maintenancePage();
+    }
+  },
+};
+
+function maintenancePage() {
+  const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BDM Business — Be Back Soon</title>
+  <title>BDM Business | We'll Be Back Soon</title>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; }
 
     body {
+      margin: 0;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #0a0f1e;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: #e2e8f0;
+      background: linear-gradient(135deg, #0f172a 0%, #111827 50%, #1e1b4b 100%);
+      color: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: center;
       padding: 24px;
     }
 
     .card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.10);
-      border-radius: 20px;
-      padding: 48px 40px;
-      max-width: 480px;
+      max-width: 620px;
       width: 100%;
-      text-align: center;
-      box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+      padding: 48px 32px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(12px);
     }
 
-    .pulse {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #7c3aed, #e1306c);
-      margin: 0 auto 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: pulse 2.4s ease-in-out infinite;
-    }
-
-    .pulse svg {
-      width: 28px;
-      height: 28px;
-      fill: none;
-      stroke: #fff;
-      stroke-width: 2;
-      stroke-linecap: round;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50%       { opacity: 0.75; transform: scale(0.94); }
+    .badge {
+      display: inline-block;
+      padding: 8px 14px;
+      margin-bottom: 24px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
     h1 {
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 2rem;
-      font-weight: 700;
-      color: #ffffff;
-      letter-spacing: -0.5px;
-      line-height: 1.15;
+      margin: 0 0 16px;
+      font-size: clamp(32px, 5vw, 52px);
+      line-height: 1.1;
+      font-weight: 800;
     }
 
-    .subtitle {
-      font-size: 0.72rem;
+    p {
+      margin: 0 auto;
+      max-width: 480px;
+      color: #cbd5e1;
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    .footer {
+      margin-top: 28px;
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    .contact {
+      margin-top: 32px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255, 255, 255, 0.10);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .contact-label {
+      color: #94a3b8;
+      font-size: 13px;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: rgba(255,255,255,0.45);
-      margin-top: 6px;
-      margin-bottom: 28px;
     }
 
-    .divider {
-      width: 40px;
-      height: 2px;
-      background: linear-gradient(90deg, #7c3aed, #e1306c);
-      border-radius: 2px;
-      margin: 0 auto 28px;
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
     }
 
-    .message {
-      font-size: 1rem;
-      line-height: 1.65;
-      color: rgba(255,255,255,0.70);
-      margin-bottom: 36px;
-    }
-
-    .cta-whatsapp {
+    .btn-whatsapp {
       display: inline-flex;
       align-items: center;
       gap: 8px;
       background: #25D366;
       color: #fff;
-      font-weight: 600;
-      font-size: 0.9rem;
-      padding: 12px 28px;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 22px;
       border-radius: 999px;
       text-decoration: none;
       transition: opacity 0.2s;
-      margin-bottom: 20px;
     }
-    .cta-whatsapp:hover { opacity: 0.88; }
+    .btn-whatsapp:hover { opacity: 0.85; }
 
-    .cta-whatsapp svg {
-      width: 18px;
-      height: 18px;
+    .btn-whatsapp svg {
+      width: 16px;
+      height: 16px;
       fill: #fff;
+      flex-shrink: 0;
     }
 
-    .links {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 8px;
-    }
-
-    .links a {
-      font-size: 0.85rem;
-      color: rgba(255,255,255,0.45);
+    .link-muted {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #94a3b8;
+      font-size: 14px;
       text-decoration: none;
-      transition: color 0.2s;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      transition: color 0.2s, border-color 0.2s;
     }
-    .links a:hover { color: rgba(255,255,255,0.85); }
-
-    @media (max-width: 480px) {
-      .card { padding: 36px 24px; }
-      h1 { font-size: 1.6rem; }
-    }
+    .link-muted:hover { color: #fff; border-color: rgba(255,255,255,0.35); }
   </style>
 </head>
 <body>
-  <div class="card">
+  <main class="card">
+    <div class="badge">BDM Business</div>
+    <h1>We'll be back soon</h1>
+    <p>Our website is currently undergoing a quick update. Please check back shortly.</p>
+    <div class="footer">Thank you for your patience.</div>
 
-    <div class="pulse">
-      <svg viewBox="0 0 24 24">
-        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/>
-        <path d="M12 6V12L16 14"/>
-      </svg>
+    <div class="contact">
+      <span class="contact-label">Reach us while we're away</span>
+      <div class="contact-links">
+
+        <a class="btn-whatsapp" href="https://wa.me/233278099101" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+          </svg>
+          WhatsApp
+        </a>
+
+        <a class="link-muted" href="https://www.instagram.com/bdmbusiness_" target="_blank" rel="noopener noreferrer">
+          @bdmbusiness_
+        </a>
+
+        <a class="link-muted" href="mailto:support@bdmbusiness.org">
+          support@bdmbusiness.org
+        </a>
+
+      </div>
     </div>
-
-    <h1>BDM Business</h1>
-    <p class="subtitle">Buabeng Degeneral Merchant</p>
-    <div class="divider"></div>
-
-    <p class="message">
-      We're currently undergoing maintenance.<br />
-      We'll be back shortly — thank you for your patience.
-    </p>
-
-    <a class="cta-whatsapp" href="https://wa.me/233278099101" target="_blank" rel="noopener noreferrer">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-      </svg>
-      Chat on WhatsApp
-    </a>
-
-    <div class="links">
-      <a href="https://www.instagram.com/bdmbusiness_" target="_blank" rel="noopener noreferrer">
-        Instagram &nbsp;@bdmbusiness_
-      </a>
-      <a href="mailto:support@bdmbusiness.org">
-        support@bdmbusiness.org
-      </a>
-    </div>
-
-  </div>
+  </main>
 </body>
 </html>`;
 
-export default {
-  async fetch(request, env, ctx) {
-    const url = new URL(request.url);
-    const originURL = ORIGIN + url.pathname + url.search;
-
-    try {
-      const originRequest = new Request(originURL, {
-        method: request.method,
-        headers: request.headers,
-        body: ["GET", "HEAD"].includes(request.method) ? undefined : request.body,
-        redirect: "manual",
-      });
-
-      const response = await fetch(originRequest);
-
-      if (response.status < 500) {
-        return response;
-      }
-
-      return new Response(MAINTENANCE_HTML, {
-        status: 200,
-        headers: { "Content-Type": "text/html;charset=UTF-8" },
-      });
-
-    } catch {
-      return new Response(MAINTENANCE_HTML, {
-        status: 200,
-        headers: { "Content-Type": "text/html;charset=UTF-8" },
-      });
-    }
-  },
-};
+  return new Response(html, {
+    status: 503,
+    headers: {
+      "Content-Type": "text/html; charset=UTF-8",
+      "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+      "Pragma": "no-cache",
+      "Expires": "0",
+    },
+  });
+}
